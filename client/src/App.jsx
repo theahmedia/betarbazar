@@ -32,9 +32,9 @@ import CategoryManage from './components/dashboard/categoryCreate.jsx';
 import BrandManage from './components/dashboard/brandCreate.jsx';
 import AdminOrder from './components/dashboard/AdminOrderPage.jsx';
 /* Dashboard */
-import Products from './components/allproducts';
-import Category from './components/category';
-import CategoryProducts  from './components/CategoryProductPage';
+import Products from './components/allproducts.jsx';
+import Category from './components/category.jsx';
+import CategoryProducts  from './components/CategoryProductPage.jsx';
 import Market2 from './components/allMarketPrice';
 import MainHotDeal from './components/allHotDeals.jsx';
 {/* CategoryMain Folders Pages */}
