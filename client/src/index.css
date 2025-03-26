@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Parkinsans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Parkinsans', sans-serif;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Bangla text styles */
+.font-bangla {
+  font-family: 'Hind Siliguri', sans-serif !important;
+}
+
+/* English text styles */
+.font-english {
+  font-family: 'Parkinsans', sans-serif !important;
+}
+
+/* Ensure Bangla font for translated content */
+[lang="bn"] {
+  font-family: 'Hind Siliguri', sans-serif !important;
+}
+
+/* Special case for Bangla numerics only */
+.react-datepicker-wrapper {
+  padding: 2px; /* Reduce padding */
+  margin: 0; /* Remove default margins */
+}
+
+/* Shopping List */
+.shopping-list {
+  position: fixed;
+  bottom: 10px;
+  right: 14px;
+  z-index: 9999; /* Ensuring it stays above other elements */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Category Slider */
+.swiper-container {  /* Adjust class if needed */
+  position: relative;
+  z-index: 10;  /* Ensure it stays below the shopping list */
+}
