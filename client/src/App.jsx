@@ -34,7 +34,7 @@ import AdminOrder from './components/dashboard/AdminOrderPage.jsx';
 /* Dashboard */
 import Products from './components/allproducts.jsx';
 import Category from './components/category.jsx';
-import CategoryProductsPage  from './components/CategoryProductPage.jsx';
+import ProductsPageCat  from './components/CatProPge.jsx';
 import Market2 from './components/allMarketPrice';
 import MainHotDeal from './components/allHotDeals.jsx';
 {/* CategoryMain Folders Pages */}
@@ -158,7 +158,7 @@ const App = () => {
         <Route path="/edit-user/:id" element={<EditUser />} />
         <Route path="/allproducts" element={<Products />} />
         <Route path="/category" element={<Category />} />
-        <Route path="/category/:categoryId" element={<CategoryProductsPage />} />
+        <Route path="/category/:categoryId" element={<ProductsPageCat />} />
         {/* CategoryMain Folders Pages Path */}
         <Route path="/CategoryMain/dailyNeeds" element={<DailyNeeds />} />
         <Route path="/CategoryMain/fruits" element={<Fruities />} />
