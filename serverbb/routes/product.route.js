@@ -33,8 +33,8 @@ router.get("/new-arrival", getNewArrival);
 router.get("/top-rated", getTopRated);
 router.get("/featured", getFeaturedProducts);
 
-// Route to get products by category
-router.get('/api/products/category/:categoryId', getProductsByCategory);
+// Route to get products by category (Corrected path)
+router.get("/category/:categoryId", getProductsByCategory); // Removed redundant `/api/products`
 
 // 🔹 GET SINGLE PRODUCT (Now placed **after** filtered routes)
 router.get("/:id", getProductById);

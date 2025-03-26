@@ -568,6 +568,7 @@ const CreateProducts = () => {
                   <th className="border px-4 py-2">Image</th>
                   <th className="border px-4 py-2">Product Name</th>
                   <th className="border px-4 py-2">Product Option</th>
+                  <th className="border px-4 py-2">Product Category</th>
                   <th className="border px-4 py-2">Purchase Price</th>
                   <th className="border px-4 py-2">Sell Price</th>
                   <th className="border px-4 py-2">Sell Quantity</th>
@@ -593,6 +594,7 @@ const CreateProducts = () => {
                       </td>
                       <td className="border px-4 py-2">{product.productName}</td>
                       <td className="border px-4 py-2">{formatProductOptions(product)}</td>
+                      <td className="border px-4 py-2">{product.category.name}</td>
                       <td className="border px-4 py-2">{purchase ? purchase.purchasePrice : "N/A"}</td>
                       <td className="border px-4 py-2">{product.sellPrice}</td>
                       <td className="border px-4 py-2">{product.sellQuantity}</td>
