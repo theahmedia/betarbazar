@@ -34,7 +34,7 @@ import AdminOrder from './components/dashboard/AdminOrderPage.jsx';
 /* Dashboard */
 import Products from './components/allproducts.jsx';
 import Category from './components/category.jsx';
-import CategoryProductsPage  from './components/CategoryProductPage.jsx';
+import CategoryProductsPage  from './components/categoryProductPage.jsx';
 import Market2 from './components/allMarketPrice';
 import MainHotDeal from './components/allHotDeals.jsx';
 {/* CategoryMain Folders Pages */}
