@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { fetchCategories, createCategory, updateCategory, deleteCategory } from "../../services/categoryService";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import { io } from "socket.io-client";
+import { socket } from "../../utils/socket";
 
-const socket = io("http://localhost:5000"); // Connect to the server
+
 
 const CategoryCreate = () => {
   const [categories, setCategories] = useState([]);
@@ -17,6 +17,25 @@ const CategoryCreate = () => {
 
   useEffect(() => {
     loadCategories();
+
+    // Manually connect the socket when the component mounts
+    socket.connect();
+
+    // Listen for category updates and handle them
+    socket.on("updateCategories", (newCategory) => {
+      setCategories((prev) => [...prev, newCategory]);
+    });
+
+    socket.on("removeCategory", (categoryId) => {
+      setCategories((prev) => prev.filter((cat) => cat._id !== categoryId));
+    });
+
+    // Clean up on component unmount
+    return () => {
+      socket.off("updateCategories");
+      socket.off("removeCategory");
+      socket.disconnect();
+    };
   }, []);
 
   const loadCategories = async () => {

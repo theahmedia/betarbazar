@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Label } from "@/components/ui/label";
-import { io } from "socket.io-client";
+import { socket } from "../../utils/socket";
 import { ToastContainer, toast } from "react-toastify"; // Import toast
 import "react-toastify/dist/ReactToastify.css"; // Import toast CSS
 
@@ -39,23 +39,27 @@ const CreateProducts = () => {
   const [deleteId, setDeleteId] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [editingId, setEditingId] = useState(null);
-  const { setSocketData } = useState(null);  //To store data from socket
+  //const { setSocketData } = useState(null);  //To store data from socket
   const [selectedPurchaseDate, setSelectedPurchaseDate] = useState("");  //New state for selected purchase date
 
   useEffect(() => {
-    const socket = io("http:localhost:5000", {
-      transports: ["websocket"],
-      reconnectionAttempts: 5,
-      reconnectionDelay: 3000,
+    // Manually connect the socket when the component mounts
+    socket.connect();
+
+    // Listen for category updates and handle them
+    socket.on("updateCategories", (newCategory) => {
+      setCategories((prev) => [...prev, newCategory]);
     });
 
-    socket.on("productAdded", (data) => {
-      setSocketData(data);  //Update state when new product is added
+    socket.on("removeCategory", (categoryId) => {
+      setCategories((prev) => prev.filter((cat) => cat._id !== categoryId));
     });
 
+    // Clean up on component unmount
     return () => {
-      socket.off("productAdded"); // Remove listener
-      socket.disconnect();  //Cleanup on unmount
+      socket.off("updateCategories");
+      socket.off("removeCategory");
+      socket.disconnect();
     };
   }, []);
 

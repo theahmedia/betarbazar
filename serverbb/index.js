@@ -16,6 +16,7 @@ import orderRoutes from "./routes/order.route.js";
 import checkUserRoutes from "./routes/auth.route.js";
 import { createServer } from "http"; 
 import { Server } from "socket.io";
+import http from http;
 
 // Load environment variables
 dotenv.config();
@@ -31,12 +32,14 @@ ConnectDB();
 
 // Initialize Express App
 const app = express();
+const server = http.createServer(app);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Middleware
-const allowedOrigins = ["http://localhost:5173", "http://192.168.110.159:5173"];
+//const allowedOrigins = ["http://localhost:5173", "http://192.168.110.159:5173"];
+const allowedOrigins = ["http://82.25.110.240:5173", "https://betarbazar.com"];
 
 app.use(cors({
   origin: allowedOrigins,
@@ -50,9 +53,6 @@ app.use(cors({
 app.use(express.json()); // Handles JSON requests
 app.use("/uploads/products", express.static(path.join("uploads/products")));
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
-
-// Create an HTTP server from Express
-const server = createServer(app);
 
 // Initialize Socket.IO with the server
 const io = new Server(server, {

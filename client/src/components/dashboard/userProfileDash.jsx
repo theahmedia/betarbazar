@@ -6,13 +6,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Logo from "../../assets/tr/BetarBazarlogo.png";
 import DefultImg from "../../assets/profileimg/errorProfile.webp"
 
-const UserProfileDash = ({ userId }) => {
+const UserProfileDash = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [selectedFromDate, setSelectedFromDate] = useState(new Date());
   const [selectedToDate, setSelectedToDate] = useState(new Date());
 
   
-  const currentDate = new Date().toLocaleDateString();
+  //const currentDate = new Date().toLocaleDateString();
 
   const orders = [
     { id: 'ORD-001', date: '05 Jan 2025', items: [{ name: 'Product A', amount: 2, price: 50, discount: 5 }, { name: 'Product B', amount: 1, price: 30, discount: 3 }], total: 125 },

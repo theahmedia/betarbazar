@@ -341,7 +341,7 @@ const FloatingShoppingList = () => {
           />
           {search && filteredProducts.length > 0 && (
             <ul className="absolute w-full bg-white border mt-1 rounded-md shadow-md z-[9999]">
-              {filteredProducts.map((product, index) => (
+              {filteredProducts?.length > 0 && filteredProducts.map((product, index) => (
                 <li
                   key={product.id}
                   className={`p-2 cursor-pointer ${selectedIndex === index ? "bg-blue-500 text-white" : "hover:bg-gray-100"}`}

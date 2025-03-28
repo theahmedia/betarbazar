@@ -57,22 +57,6 @@ const Navigation = () => {
         );
     };
 
-    // const handleCheckout = () => {
-    //     // Implement your checkout logic here
-    //     toast.success('Order placed successfully!', { autoClose: 2000 });
-    //     clearCart(); // Clear the cart after checkout
-    //     setIsCartOpen(false); // Close the cart sidebar
-    //     navigate('/checkout'); // Navigate to the checkout page
-    // };
-
-    // const calculateTotal = () => {
-    //     return cart.reduce((total, item) => {
-    //         console.log("Calculating:", item); // Debugging log
-    //         return total + (item.price ? item.price * item.quantity : 0);
-    //     }, 0);
-    // };
-
-
     return (
         <>
             <ToastContainer />
