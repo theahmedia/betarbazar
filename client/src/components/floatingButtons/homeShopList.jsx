@@ -23,10 +23,10 @@ const FloatingShoppingList = () => {
   const [deliveryLocation, setDeliveryLocation] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [subtotal, setSubtotal] = useState(0);
-  const { setOrderSubmitted } = useState(false); // Track order submission status
+  const [orderSubmitted, setOrderSubmitted] = useState(false); // Track order submission status
 
 
-  const { setIsExistingUser } = useState(false);
+  const [isExistingUser, setIsExistingUser] = useState(false);
 
   const { clearBag } = useBag();
   const { user } = useAuth();
@@ -312,6 +312,11 @@ const FloatingShoppingList = () => {
     }
   };
   
+  useEffect(() => {
+    if (orderSubmitted) {
+      setIsOpen(false);
+    }
+  }, [orderSubmitted]);
   
 
 
