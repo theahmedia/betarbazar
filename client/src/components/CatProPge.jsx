@@ -94,15 +94,15 @@ const CategoryProductsPage = () => {
 
   return (
     <div className="bg-white mt-24 md:mt-32 lg:mt-32 text-gray-900 min-h-screen p-6">
-      <div className='mb-8' style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Link to="/category">
-            <button className="bg-custom-orange flex gap-2 items-center text-white p-2 rounded-md shadow-md hover:shadow-lg hover:bg-orange-600 transition duration-300">
-                    <MdArrowBack />
-                    Back to category page
-                </button>
-            </Link>
-      </div>
       <div className="max-w-7xl mx-auto">
+        <div className='mb-8' style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Link to="/category">
+          <button className="bg-custom-orange flex gap-2 items-center text-white p-2 rounded-md shadow-md hover:shadow-lg hover:bg-orange-600 transition duration-300">
+                  <MdArrowBack />
+                  Back to category page
+              </button>
+          </Link>
+        </div>
         <h2 className="text-3xl font-bold text-center mb-8">
           {t("Category")}: {categoryName}
         </h2>
