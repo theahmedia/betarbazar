@@ -36,7 +36,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Middleware
-const allowedOrigins = ["http://localhost:5173", "http://192.168.110.159:5173"];
+//const allowedOrigins = ["http://localhost:5173", "http://192.168.110.159:5173"];
+
+const allowedOrigins = [
+  "http://localhost:5173", 
+  "http://192.168.110.159:5173", 
+  "https://betarbazar.com" // Add production domain
+];
 
 app.use(cors({
   origin: allowedOrigins,
