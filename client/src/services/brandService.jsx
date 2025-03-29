@@ -1,10 +1,12 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/brands';
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+const BASE_API_URL = `${API_URL}/api/brands`;
 
 export const fetchBrands = async () => {
   try {
-    const response = await axios.get(API_URL);
+    const response = await axios.get(BASE_API_URL);
     return response.data;  // Return the brands data
   } catch (error) {
     console.error('Error fetching brands:', error);
@@ -14,7 +16,7 @@ export const fetchBrands = async () => {
 
 export const createBrand = async (brandData) => {
   try {
-    const response = await axios.post(API_URL, brandData);
+    const response = await axios.post(BASE_API_URL, brandData);
     return response.data;  // Return the newly created brand
   } catch (error) {
     console.error('Error creating brand:', error);
@@ -24,7 +26,7 @@ export const createBrand = async (brandData) => {
 
 export const updateBrand = async (id, brandData) => {
   try {
-    const response = await axios.put(`${API_URL}/${id}`, brandData);
+    const response = await axios.put(`${BASE_API_URL}/${id}`, brandData);
     return response.data;  // Return the updated brand
   } catch (error) {
     console.error('Error updating brand:', error);
@@ -34,7 +36,7 @@ export const updateBrand = async (id, brandData) => {
 
 export const deleteBrand = async (id) => {
   try {
-    const response = await axios.delete(`${API_URL}/${id}`);
+    const response = await axios.delete(`${BASE_API_URL}/${id}`);
     return response.data;
   } catch (error) {
     if (error.response) {

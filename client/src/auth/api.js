@@ -1,10 +1,8 @@
 import axios from "axios";
 
-// Use environment variable for API URL to switch between development and production
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api/auth"; // Default to local for development
-const PRODUCT_API_URL = `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/products`; // Default to local for development
+const API_URL = "http://localhost:5000/api/auth";
+const PRODUCT_API_URL = "http://localhost:5000/api/products";
 
-// User API
 export const registerUser = async (userData) => {
   return axios.post(`${API_URL}/register`, userData);
 };
