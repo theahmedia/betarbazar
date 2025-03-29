@@ -40,7 +40,7 @@ app.use(helmet()); // Security headers
 app.use(compression()); // Gzip compression
 
 // CORS Setup
-const allowedOrigins = process.env.ALLOWED_ORIGINS.split(",");
+const allowedOrigins = ["http://localhost:5173", "https://betarbazar.com/"];
 
 app.use(cors({
   origin: allowedOrigins,
