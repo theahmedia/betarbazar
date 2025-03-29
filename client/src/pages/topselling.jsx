@@ -8,8 +8,6 @@ import axios from 'axios';
 import { useCart } from '../context/CartContext';
 import { useBag } from '../context/BagContext';
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
 const formatPrice = (price, language, t) => {
   // Convert to number and handle NaN cases
   const numericPrice = Number(price);
@@ -52,7 +50,7 @@ const TopSellingProducts = () => {
           throw new Error('Invalid API response format');
         }
 
-        const baseImageUrl = `${API_URL}/uploads/products/`;
+        const baseImageUrl = 'http://localhost:5000/uploads/products/';
         const validatedProducts = response.data.map(product => ({
           ...product,
           sellingPrice: Number(product.sellAmount) || 0,

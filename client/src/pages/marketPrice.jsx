@@ -7,8 +7,6 @@ import { IoCloseCircleOutline } from 'react-icons/io5';
 import axios from 'axios';
 import { useBag } from '../context/BagContext';
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
 const formatPrice = (price, language, t) => {
   const numericPrice = Number(price);
   if (isNaN(numericPrice)) return t('priceNotAvailable');
@@ -48,7 +46,7 @@ const ProductPriceSection = () => {
           throw new Error('Invalid API response format');
         }
 
-        const baseImageUrl = `${API_URL}/uploads/products/`;
+        const baseImageUrl = 'http://localhost:5000/uploads/products/';
         const validatedProducts = response.data.map(product => ({
           ...product,
           sellingPrice: Number(product.sellAmount) || 0,

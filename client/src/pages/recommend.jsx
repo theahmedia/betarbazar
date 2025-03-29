@@ -7,8 +7,6 @@ import axios from 'axios';
 import { useCart } from '../context/CartContext';
 import { useBag } from '../context/BagContext';
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
 const formatPrice = (price, language) => {
   if (typeof price !== 'number') {
     console.error("Invalid price value:", price);
@@ -76,7 +74,7 @@ const Rfy = () => {
               description: product.description,
               category: product.category || 'Uncategorized',
               rating: Number(product.rating) || 0,
-              image: product.image ? `${API_URL}/uploads/products/${product.image}` : 'default-image-url',
+              image: product.image ? `http://localhost:5000/uploads/products/${product.image}` : 'default-image-url',
             }))
             : [];
 

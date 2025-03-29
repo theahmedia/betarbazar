@@ -7,11 +7,8 @@ const ForgotPassword = () => {
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
-
-    const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/users/forgot-password` : "http://localhost:5000/api/users/forgot-password";
-
     try {
-      await axios.post(API_URL, { email });
+      await axios.post("http://localhost:5000/api/users/forgot-password", { email });
       toast.success("Password reset link sent to your email.");
     } catch (error) {
       toast.error(error.response.data.message);

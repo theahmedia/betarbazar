@@ -13,14 +13,11 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  // Set the base API URL dynamically based on the environment
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
   // Fetch current user data when the component mounts
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/users/me`, {
+        const response = await axios.get("http://localhost:5000/api/users/me", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -36,7 +33,7 @@ const ResetPassword = () => {
     };
 
     fetchCurrentUser();
-  }, [t, API_URL]); // Empty dependency array to run only once on component mount
+  }, [t]); // Empty dependency array to run only once on component mount
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
@@ -47,7 +44,7 @@ const ResetPassword = () => {
     }
 
     try {
-      await axios.post(`${API_URL}/api/users/reset-password/${token}`, {
+      await axios.post(`http://localhost:5000/api/users/reset-password/${token}`, {
         newPassword,
         confirmPassword,
       });

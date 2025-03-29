@@ -5,15 +5,13 @@ const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
   useEffect(() => {
     fetchOrders();
   }, []);
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/orders`);
+      const response = await axios.get("http://localhost:5000/api/orders");
       setOrders(response.data);
     } catch (error) {
       console.error("Error fetching orders", error);
@@ -23,7 +21,7 @@ const AdminOrders = () => {
   };  
   const handleStatusChange = async (id, status) => {
     try {
-      await axios.put(`${API_URL}/api/orders/${id}/status`, { status });
+      await axios.put(`http://localhost:5000/api/orders/${id}/status`, { status });
       fetchOrders();
     } catch (error) {
       console.error("Error updating order status", error);
@@ -33,7 +31,7 @@ const AdminOrders = () => {
   const handleDeleteOrder = async (id) => {
     if (!window.confirm("Are you sure you want to delete this order?")) return;
     try {
-      await axios.delete(`${API_URL}/api/orders/${id}`);
+      await axios.delete(`http://localhost:5000/api/orders/${id}`);
       fetchOrders();
     } catch (error) {
       console.error("Error deleting order", error);
@@ -84,7 +82,7 @@ const AdminOrders = () => {
       </td>
       <td className="border p-2">
         <a
-          href={`${API_URL}/api/orders/invoice/${order._id}`}
+          href={`http://localhost:5000/api/orders/invoice/${order._id}`}
           target="_blank"
           rel="noopener noreferrer"
           className="bg-green-500 text-white px-3 py-1"

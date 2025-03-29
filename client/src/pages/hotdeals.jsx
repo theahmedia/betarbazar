@@ -31,8 +31,6 @@ const HotDeals = () => {
   const { addToCart } = useCart();
   const { addToBag } = useBag();
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -46,9 +44,9 @@ const HotDeals = () => {
     const fetchHotDeals = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${API_URL}/api/products/hot-deals`)
+        const response = await axios.get(`http://localhost:5000/api/products/hot-deals`)
 
-        const baseImageUrl = '${API_URL}/uploads/products/';
+        const baseImageUrl = 'http://localhost:5000/uploads/products/';
 
         const validatedProducts = response.data.map((product) => ({
           ...product,
