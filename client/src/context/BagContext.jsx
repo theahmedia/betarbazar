@@ -13,14 +13,14 @@ const bagReducer = (state, action) => {
           ...state,
           items: state.items.map((item) =>
             item.id === action.payload.id
-            ? { ...item, quantity: item.quantity + action.payload.quantity }
+            ? { ...item, quantity: item.quantity + action.payload.quantity, price: item.price }
               : item
           ),
         };
       } else {
         return {
           ...state,
-          items: [...state.items, { ...action.payload, price: action.payload.price || 0 }],
+          items: [...state.items, { ...action.payload, }],
         };
       }
     }
@@ -66,10 +66,17 @@ export const BagProvider = ({ children }) => {
       console.error("Product sellPrice is missing:", product);
       return;
     }
+      // Log the product to check its structure before dispatching
+    //console.log("Adding to bag:", { ...product, price: product.sellPrice, quantity });
+
+    console.log("Product being added:", product);
+    console.log("Quantity being added:", quantity);
+
     dispatch({
       type: 'ADD_TO_BAG',
       payload: { ...product, price: product.sellPrice, quantity }, // Map sellPrice to price
     });
+    console.log("Updated bag state:", bagState.items);
   };
 
   const increaseQuantity = (productId) => {

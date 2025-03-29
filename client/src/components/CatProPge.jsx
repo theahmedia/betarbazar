@@ -4,33 +4,59 @@ import { useCart } from '../context/CartContext';
 import { useBag } from '../context/BagContext';
 import { BsArrowRight } from "react-icons/bs"; // Assuming you're using this icon
 import { FaShoppingCart } from "react-icons/fa"; // Assuming you're using this icon
+import { useTranslation } from 'react-i18next';
+//import axios from 'axios';
 
 const CategoryProductsPage = () => {
+  const { t } = useTranslation();
   const { categoryId } = useParams();  // Get category ID from the URL
   const [products, setProducts] = useState([]);
+  const [categoryName, setCategoryName] = useState("");
   const [quantities, setQuantities] = useState({});
   const { addToCart } = useCart();
   const { addToBag } = useBag();
 
   useEffect(() => {
+    // Fetch category name
+    const fetchCategory = async () => {
+      try {
+        const response = await fetch(`/api/categories/${categoryId}`);
+        const data = await response.json();
+        setCategoryName(data.name || "Category"); // Default to "Category" if no name is found
+      } catch (error) {
+        console.error("Error fetching category:", error);
+        setCategoryName("Category"); // Fallback name
+      }
+    };
+
     // Fetch products for the selected category
     const fetchProducts = async () => {
       try {
         const response = await fetch(`/api/products/category/${categoryId}`);
         const data = await response.json();
 
-        // Ensure data is an array before setting it
-        if (Array.isArray(data)) {
-          setProducts(data);
-        } else {
-          setProducts([]); // If data is not an array, set to an empty array
-        }
+        // Define the base image URL
+        const baseImageUrl = 'http://localhost:5000/uploads/products/';
+
+        // Map the products and validate the fields
+        const validatedProducts = data.map((product) => ({
+          ...product,
+          sellingPrice: Number(product.sellAmount) || 0,
+          discount: Number(product.discount) || 0,
+          size: product.product_size || 'N/A',
+          name: product.productName || 'Unnamed Product',
+          description: product.description,
+          image: product.image ? `${baseImageUrl}${product.image}` : 'default-image-url',
+        }));
+
+        setProducts(validatedProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
-        setProducts([]); // In case of an error, set to an empty array
+        setProducts([]);
       }
     };
 
+    fetchCategory();
     fetchProducts();
   }, [categoryId]);
 
@@ -49,6 +75,7 @@ const CategoryProductsPage = () => {
       alert('Error adding to bag');
     }
   };
+
   const increaseQuantity = (productId) => {
     setQuantities(prev => ({
       ...prev,
@@ -67,7 +94,7 @@ const CategoryProductsPage = () => {
     <div className="bg-white mt-24 md:mt-32 lg:mt-32 text-gray-900 min-h-screen p-6">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-8">
-          {/* {t("ProductsInCategory")} */}
+          {t("Category")}: {categoryName}
         </h2>
 
         {products.length === 0 ? (
@@ -79,14 +106,14 @@ const CategoryProductsPage = () => {
             {products.map((product) => (
               <div key={product._id} className="bg-white shadow-lg rounded-lg overflow-hidden">
                 <img
-                  src={product.image ? `http://localhost:5000/uploads/products/${product.image}` : '/default-product.jpg'}
-                  alt={product.productName}
+                  src={product.image || '/default-product.jpg'}
+                  alt={product.name}
                   className="w-full h-40 object-cover"
                 />
                 <div className="p-4">
-                  <h3 className="text-xl font-semibold">{product.productName}</h3>
-                  <p className="text-gray-600">{product.product_size}</p>
-                  <p className="text-gray-900 font-bold">{`$${product.sellAmount}`}</p>
+                  <h3 className="text-xl font-semibold">{product.name}</h3>
+                  <p className="text-gray-600">{product.size}</p>
+                  <p className="text-gray-900 font-bold">{`$${product.sellingPrice}`}</p>
                   <div className="px-4">
                     <div className="flex items-center justify-center gap-2 mb-4">
                       <h6>Quantity</h6>
@@ -136,3 +163,4 @@ const CategoryProductsPage = () => {
 };
 
 export default CategoryProductsPage;
+

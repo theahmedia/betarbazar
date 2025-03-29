@@ -35,6 +35,7 @@ const CartPage = () => {
                     <thead>
                         <tr>
                             <th className="px-4 py-2 border border-gray-300 text-left">{t("Product")}</th>
+                            <th className="px-4 py-2 border border-gray-300 text-left">{t("ProductSize")}</th>
                             <th className="px-4 py-2 border border-gray-300 text-left">{t("Quantity")}</th>
                             <th className="px-4 py-2 border border-gray-300 text-left">{t("Price")}</th>
                             <th className="px-4 py-2 border border-gray-300 text-left">{t("Actions")}</th>
@@ -46,6 +47,7 @@ const CartPage = () => {
                             cart.map((item, index) => (
                                 <tr key={index} className="border-t">
                                     <td className="px-4 py-2 border border-gray-300">{item.productName}</td>
+                                    <td className="px-4 py-2 border border-gray-300">{item.product_size}</td>
                                     <td className="px-4 py-2 border border-gray-300">
                                         <div className="flex items-center justify-center">
                                             <button onClick={() => decreaseQuantity(item.id)} className="p-1">

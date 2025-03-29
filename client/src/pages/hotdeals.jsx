@@ -44,7 +44,7 @@ const HotDeals = () => {
     const fetchHotDeals = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/hot-deals`)
+        const response = await axios.get(`http://localhost:5000/api/products/hot-deals`)
 
         const baseImageUrl = 'http://localhost:5000/uploads/products/';
 

@@ -29,9 +29,7 @@ const AllProducts = () => {
       }
     };
 
-    if (categories.length === 0) { // Prevent refetching if categories are already fetched
       fetchCategories();
-    }
   }, [categories]);
 
   // Fetch products from the server using axios
@@ -39,7 +37,20 @@ const AllProducts = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/products"); // Your API endpoint for products
-        setProducts(response.data); // Set the fetched products in the state
+
+        const baseImageUrl = 'http://localhost:5000/uploads/products/';
+        
+        const validatedProducts = response.data.map((product) => ({
+          ...product,
+          sellingPrice: Number(product.sellAmount) || 0,
+          discount: Number(product.discount) || 0,
+          size: product.product_size || 'N/A',
+          name: product.productName || 'Unnamed Product',
+          description: product.description,
+          image: product.image ? `${baseImageUrl}${product.image}` : 'default-image-url',
+        }));
+
+        setProducts(validatedProducts); // Set the fetched products in the state
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -48,51 +59,33 @@ const AllProducts = () => {
     fetchProducts();
   }, []);
 
+  const increaseQuantity = (productId) => {
+    setQuantities(prev => ({
+      ...prev,
+      [productId]: (prev[productId] || 1) + 1
+    }));
+  };
+
+  const decreaseQuantity = (productId) => {
+    setQuantities(prev => ({
+      ...prev,
+      [productId]: Math.max(1, (prev[productId] || 1) - 1)
+    }));
+  };
+
   const handleAddToCart = (product) => {
     const quantityToAdd = quantities[product._id] || 1;
-    console.log("Adding to cart:", {
-      ...product,
-      id: product._id,
-      productName: product.productName || 'No name',
-      productSize: product.product_size || 'No size',
-    });
-    addToCart({
-      ...product,
-      id: product._id,
-      productName: product.productName || 'No name',
-      productSize: product.product_size || 'No size',
-      sellPrice: product.sellAmount,
-      category: product.category?.name,
-      brand: product.brand?.name,
-    }, quantityToAdd);
+    addToCart({ ...product, id: product._id }, quantityToAdd);
   };
 
   const handleAddToBag = (product) => {
     try {
       const quantityToAdd = quantities[product._id] || 1;
-  
-      // Log the product details being passed to the bag
-      console.log("Adding to bag:", { 
-        ...product, 
-        id: product._id, 
-        productName: product.productName, 
-        productSize: product.product_size  // Ensure this is correctly passed
-      });
-  
-      addToBag({ 
-        ...product, 
-        id: product._id, 
-        productName: product.productName, 
-        productSize: product.product_size,  // Ensure this is correctly passed
-        sellPrice: product.sellAmount,
-        category: product.category?.name,
-        brand: product.brand?.name
-      }, quantityToAdd);
-  
+      addToBag({ ...product, id: product._id }, quantityToAdd);
       setQuantities(prev => ({ ...prev, [product._id]: 1 })); // Reset quantity to 1
     } catch (error) {
       console.error('Error adding to bag:', error);
-      alert(t('error.addToBag'));
+      alert(t('error.addToBag')); // Show error message to the user
     }
   };
 
@@ -117,8 +110,8 @@ const AllProducts = () => {
   );
 
   useEffect(() => {
-    setCurrentPage(1); // Reset to first page on category change or sorting order change
-  }, [selectedCategory, sortOrder]);
+    setCurrentPage(1); // Reset to first page when category or sort order changes
+  }, [selectedCategory, sortOrder, filteredProducts.length]); // Ensure that the pagination resets correctly
 
   return (
     <div className="bg-white text-gray-800 min-h-screen mt-40 p-6">
@@ -183,7 +176,7 @@ const AllProducts = () => {
                   className="border rounded-lg p-4 shadow-md hover:shadow-lg transition"
                 >
                   <img
-                    src={product.image ? `http://localhost:5000/uploads/products/${product.image}` : '/default-image.jpg'}
+                    src={product.image}
                     alt={product.productName}
                     className="w-full h-40 object-cover rounded-md mb-3"
                   />
@@ -194,6 +187,28 @@ const AllProducts = () => {
                   <p className="text-gray-600">Category: {product.category?.name}</p>
                   <p className="text-gray-600">Brand: {product.brand?.name}</p>
                   <p className="text-yellow-500">⭐ {product.rating}</p>
+
+                  {/* Quantity Controls */}
+            <div className="px-4">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <h6>{t('quantity')}</h6>
+                <button
+                  onClick={() => decreaseQuantity(product._id)}
+                  className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+                >
+                  -
+                </button>
+                <span className="min-w-[30px] text-center">
+                  {quantities[product._id] || 1}
+                </span>
+                <button
+                  onClick={() => increaseQuantity(product._id)}
+                  className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+                >
+                  +
+                </button>
+              </div>
+            </div>
 
                   {/* Add to Cart and Add to Bag Buttons */}
                   <div className="p-4 pt-0">
