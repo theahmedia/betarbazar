@@ -15,12 +15,12 @@ export default defineConfig({
     port: 5173, // ✅ Ensure frontend runs on this port
     proxy: {
       "/api": {
-        target: API_URL ||  "http://localhost:5000", // ✅ Backend is running on port 5000
+        target: API_URL, // ✅ Backend is running on port 5000
         changeOrigin: true,
         secure: false,
       },
       '/invoices': {
-        target: API_URL ||  'http://localhost:5000', // Backend URL
+        target: API_URL, // Backend URL
         changeOrigin: true,
         secure: false,
       },
