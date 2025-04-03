@@ -21,7 +21,7 @@ const ProductList = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {products.map((product) => (
           <div key={product._id} className="border p-4 rounded">
-            <img src={`http://localhost:5000/${product.image}`} alt={product.productName} className="w-full h-40 object-cover" />
+            <img src={`${import.meta.env.VITE_API_URL}/${product.image}`} alt={product.productName} className="w-full h-40 object-cover" />
             <h2 className="text-lg font-semibold mt-2">{product.productName}</h2>
             <p className="text-gray-600">Price: ${product.sellPrice}</p>
             <div className="flex justify-between mt-2">

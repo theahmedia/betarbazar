@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/users";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api/users";
+
 
 export const createUser = async (userData) => {
   const response = await axios.post(API_URL, userData);
@@ -29,7 +30,7 @@ export const getRoles = async () => {
 export const getUserById = async (id) => {
   if (!id) throw new Error("User ID is required");
   
-  const res = await fetch(`http://localhost:5000/api/users/${id}`); // Ensure correct port
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${id}`);
   if (!res.ok) {
       throw new Error("Failed to fetch user");
   }
@@ -39,7 +40,7 @@ export const getUserById = async (id) => {
 
 
 export const updateUser = async (id, updatedData) => {
-  const res = await fetch(`http://localhost:5000/api/users/${id}`, {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${id}`, {
       method: "PUT", // or "PATCH" if only updating specific fields
       headers: {
           "Content-Type": "application/json",

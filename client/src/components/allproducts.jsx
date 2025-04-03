@@ -22,7 +22,7 @@ const AllProducts = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/categories");
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/categories`);
         setCategories(response.data); // Set the fetched categories in the state
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -36,9 +36,9 @@ const AllProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/products"); // Your API endpoint for products
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`); // Your API endpoint for products
 
-        const baseImageUrl = 'http://localhost:5000/uploads/products/';
+        const baseImageUrl = `${import.meta.env.VITE_API_URL}/uploads/products/`;
         
         const validatedProducts = response.data.map((product) => ({
           ...product,

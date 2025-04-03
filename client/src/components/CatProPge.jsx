@@ -38,7 +38,7 @@ const CategoryProductsPage = () => {
         const data = await response.json();
 
         // Define the base image URL
-        const baseImageUrl = 'http://localhost:5000/uploads/products/';
+        const baseImageUrl = `${import.meta.env.VITE_API_URL}/uploads/products/`;
 
         // Map the products and validate the fields
         const validatedProducts = data.map((product) => ({

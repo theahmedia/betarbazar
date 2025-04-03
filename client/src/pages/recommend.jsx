@@ -74,7 +74,7 @@ const Rfy = () => {
               description: product.description,
               category: product.category || 'Uncategorized',
               rating: Number(product.rating) || 0,
-              image: product.image ? `http://localhost:5000/uploads/products/${product.image}` : 'default-image-url',
+              image: product.image ? `${import.meta.env.VITE_API_URL}/uploads/products/${product.image}` : 'default-image-url',
             }))
             : [];
 

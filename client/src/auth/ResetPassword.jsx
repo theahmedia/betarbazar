@@ -17,7 +17,7 @@ const ResetPassword = () => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/me", {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/me`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -44,7 +44,7 @@ const ResetPassword = () => {
     }
 
     try {
-      await axios.post(`http://localhost:5000/api/users/reset-password/${token}`, {
+      await axios.post(`${import.meta.env.VITE_API_URL}api/users/reset-password/${token}`, {
         newPassword,
         confirmPassword,
       });
