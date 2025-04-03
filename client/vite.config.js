@@ -3,9 +3,6 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// Use environment variables
-const API_URL = import.meta.env.VITE_API_URL;
-
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
@@ -15,12 +12,12 @@ export default defineConfig({
     port: 5173, // ✅ Ensure frontend runs on this port
     proxy: {
       "/api": {
-        target: API_URL, // ✅ Backend is running on port 5000
+        target: "http://localhost:5000", // ✅ Backend is running on port 5000
         changeOrigin: true,
         secure: false,
       },
       '/invoices': {
-        target: API_URL, // Backend URL
+        target: 'http://localhost:5000', // Backend URL
         changeOrigin: true,
         secure: false,
       },
