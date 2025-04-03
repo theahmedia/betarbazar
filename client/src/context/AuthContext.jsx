@@ -11,9 +11,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (phone, password) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, { phone, password });
+      const response = await axios.post("http://localhost:5000/api/auth/login", { phone, password });
       setUser(response.data.user);
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("role", response.data.user.role);
     } catch (error) {
       console.error(error);
     }
@@ -21,7 +22,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, phone, email, password) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/register`, { name, phone, email, password });
+      const response = await axios.post("http://localhost:5000/api/users/register", { name, phone, email, password });
       setUser(response.data.user);
     } catch (error) {
       console.error(error);
@@ -31,6 +32,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("token");
+    localStorage.removeItem("role", user.role);
   };
 
   return (

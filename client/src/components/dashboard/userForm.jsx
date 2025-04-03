@@ -18,7 +18,7 @@ export const UserForm = ({ user = {}, onSubmit, onClose }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/role`)
+    fetch("http://localhost:5000/api/role")
       .then((res) => res.json())
       .then((data) => setRoles(data))
       .catch((err) => console.error("Error fetching roles:", err));

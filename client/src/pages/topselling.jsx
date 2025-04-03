@@ -50,7 +50,7 @@ const TopSellingProducts = () => {
           throw new Error('Invalid API response format');
         }
 
-        const baseImageUrl = `${import.meta.env.VITE_API_URL}/uploads/products/`;
+        const baseImageUrl = 'http://localhost:5000/uploads/products/';
         const validatedProducts = response.data.map(product => ({
           ...product,
           sellingPrice: Number(product.sellAmount) || 0,

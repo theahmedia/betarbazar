@@ -30,7 +30,7 @@
 //         return;
 //       }
 //       const response = await axios.get(
-//         `${import.meta.env.VITE_API_URL}/api/check-user?phone=${phoneNumber}`
+//         `http://localhost:5000/api/check-user?phone=${phoneNumber}`
 //       );
 //       setIsExistingUser(response.data.exists);
 //     } catch (error) {
@@ -43,7 +43,7 @@
 //     const fetchUserData = async (userId) => {
 //       try {
 //         if (userId) {
-//           const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${userId}`);
+//           const response = await fetch(`http://localhost:5000/api/users/${userId}`);
 //           if (!response.ok) throw new Error("Failed to fetch user data");
 
 //           const userData = await response.json();
@@ -69,7 +69,7 @@
 //   const updateInvoiceUrl = async (userId, invoiceUrl) => {
 //     try {
 //       const response = await axios.put(
-//         `${import.meta.env.VITE_API_URL}/api/users/${userId}/invoice`,
+//         `http://localhost:5000/api/users/${userId}/invoice`,
 //         { invoiceUrl }
 //       );
 //       console.log("Invoice URL updated:", response.data);
@@ -105,13 +105,13 @@
 //       let userId = user?.id;
 
 //       if (!userId) {
-//         const userCheckResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/users?phone=${phoneNumber}`);
+//         const userCheckResponse = await fetch(`http://localhost:5000/api/users?phone=${phoneNumber}`);
 //         const existingUser = await userCheckResponse.json();
 
 //         if (userCheckResponse.ok && existingUser?._id) {
 //           userId = existingUser._id;
 //         } else {
-//           const registerResponse = await fetch("${import.meta.env.VITE_API_URL}/api/auth/register", {
+//           const registerResponse = await fetch("http://localhost:5000/api/auth/register", {
 //             method: "POST",
 //             headers: { "Content-Type": "application/json" },
 //             body: JSON.stringify({
@@ -148,7 +148,7 @@
 //         paymentNumber,
 //       };
 
-//       const response = await fetch("${import.meta.env.VITE_API_URL}/api/orders", {
+//       const response = await fetch("http://localhost:5000/api/orders", {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify(orderData),
@@ -348,7 +348,7 @@ const ShoppingBag = () => {
         return;
       }
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/check-user?phone=${phoneNumber}`
+        `http://localhost:5000/api/check-user?phone=${phoneNumber}`
       );
       setIsExistingUser(response.data.exists);
     } catch (error) {
@@ -361,7 +361,7 @@ const ShoppingBag = () => {
     const fetchUserData = async (userId) => {
       try {
         if (userId) {
-          const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${userId}`);
+          const response = await fetch(`http://localhost:5000/api/users/${userId}`);
           if (!response.ok) throw new Error("Failed to fetch user data");
 
           const userData = await response.json();
@@ -387,7 +387,7 @@ const ShoppingBag = () => {
   const updateInvoiceUrl = async (userId, invoiceUrl) => {
     try {
       const response = await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/users/${userId}/invoice`,
+        `http://localhost:5000/api/users/${userId}/invoice`,
         { invoiceUrl }
       );
       console.log("Invoice URL updated:", response.data);
@@ -423,13 +423,13 @@ const ShoppingBag = () => {
       let userId = user?.id;
 
       if (!userId) {
-        const userCheckResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/users?phone=${phoneNumber}`);
+        const userCheckResponse = await fetch(`http://localhost:5000/api/users?phone=${phoneNumber}`);
         const existingUser = await userCheckResponse.json();
 
         if (userCheckResponse.ok && existingUser?._id) {
           userId = existingUser._id;
         } else {
-          const registerResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
+          const registerResponse = await fetch("http://localhost:5000/api/auth/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -466,7 +466,7 @@ const ShoppingBag = () => {
         paymentNumber,
       };
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, {
+      const response = await fetch("http://localhost:5000/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(orderData),

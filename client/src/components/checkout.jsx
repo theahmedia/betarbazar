@@ -29,7 +29,7 @@ const Checkout = () => {
         totalAmount: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0),
       };
 
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/orders`, orderData);
+      const response = await axios.post("http://localhost:5000/api/orders", orderData);
       if (response.status === 201) {
         toast.success('Order placed successfully!', { autoClose: 2000 });
         localStorage.removeItem("cart"); // Clear Cart

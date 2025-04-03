@@ -92,6 +92,8 @@ import FeaturedProductsPage from './pages/recommend.jsx';
 import { CartProvider } from './context/CartContext.jsx';
 import { BagProvider } from './context/BagContext.jsx';
 import Checkout from './components/checkout.jsx'; // Import the new Checkout component
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+
 
 
 const App = () => {
