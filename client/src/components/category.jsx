@@ -52,7 +52,7 @@ const CategoryPage = () => {
               <div className="group relative cursor-pointer rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 bg-custom-orange">
                 <div className="w-full h-44 overflow-hidden">
                   <img
-                    src={category.image ? `http://localhost:5000/${category.image}` : '/default-image.jpg'}
+                    src={category.image ? `${import.meta.env.VITE_API_URL}/${category.image}` : '/default-image.jpg'}
                     alt={category.name}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                   />

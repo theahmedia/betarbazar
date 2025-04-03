@@ -41,7 +41,7 @@ export default function AdminPurchase() {
 
   const fetchPurchases = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/purchases", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/purchases`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -67,7 +67,7 @@ export default function AdminPurchase() {
 
   const fetchSuppliers = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/suppliers", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/suppliers`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -171,7 +171,7 @@ export default function AdminPurchase() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/purchases", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/purchases`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: { "Content-Type": "application/json" },
@@ -238,7 +238,7 @@ export default function AdminPurchase() {
     formDataToSend.append("updatedDate", new Date().toISOString());
 
     try {
-      const response = await fetch(`http://localhost:5000/api/purchases/${formData._id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/purchases/${formData._id}`, {
         method: "PUT",
         body: formDataToSend,
       });
@@ -286,7 +286,7 @@ export default function AdminPurchase() {
     if (!window.confirm("Are you sure you want to delete this purchase?")) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/purchases/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/purchases/${id}`, {
         method: "DELETE",
       });
 

@@ -266,7 +266,7 @@ const CreateProducts = () => {
       topRated: product.topRated || false,
       featured: product.featured || false,
     });
-    setImagePreview(product.image ? `http://localhost:5000/uploads/products/${product.image}` : null); // Show the existing image for editing
+    setImagePreview(product.image ? `${import.meta.env.VITE_API_URL}/uploads/products/${product.image}` : null); // Show the existing image for editing
     setEditingId(product._id); // Set the editingId to the product's ID
   };
 
@@ -542,7 +542,7 @@ const CreateProducts = () => {
                 <img src={imagePreview} alt="Preview" className="w-32 h-32 object-cover mt-4 rounded-md shadow-md" />
               ) : formData.existingImage ? (
                 <img
-                  src={`http://localhost:5000/uploads/products/${formData.existingImage}`}
+                  src={`${import.meta.env.VITE_API_URL}/uploads/products/${formData.existingImage}`}
                   alt="Existing Product"
                   className="w-32 h-32 object-cover mt-4 rounded-md shadow-md"
                 />
@@ -591,7 +591,7 @@ const CreateProducts = () => {
                       <td className="border px-4 py-2">{purchase ? purchase.purchaseDate : "N/A"}</td>
                       <td className="border px-4 py-2">
                         <img
-                          src={`http://localhost:5000/uploads/products/${product.image}`}
+                          src={`${import.meta.env.VITE_API_URL}/uploads/products/${product.image}`}
                           alt={product.productName}
                           className="h-12 w-12 object-cover rounded"
                         />

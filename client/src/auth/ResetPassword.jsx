@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next"; // Import i18n hook
 import "../i18n"; // Import i18n configuration
 
+const API_URL = import.meta.env.VITE_API_BASE_URL;
+
 const ResetPassword = () => {
   const { token } = useParams();
   const [newPassword, setNewPassword] = useState("");
@@ -17,7 +19,7 @@ const ResetPassword = () => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users/me", {
+        const response = await axios.get(`${API_URL}/users/me`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -44,7 +46,7 @@ const ResetPassword = () => {
     }
 
     try {
-      await axios.post(`http://localhost:5000/api/users/reset-password/${token}`, {
+      await axios.post(`${API_URL}/users/reset-password/${token}`, {
         newPassword,
         confirmPassword,
       });

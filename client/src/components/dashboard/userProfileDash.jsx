@@ -209,7 +209,7 @@ const UserProfileDash = () => {
 
   useEffect(() => {
     // Fetch logged-in user data
-    axios.get('http://localhost:5000/api/user') // Adjust the endpoint for your backend
+    axios.get(`${import.meta.env.VITE_API_URL}/api/user`) // Adjust the endpoint for your backend
       .then(response => {
         setUser(response.data);
       })
@@ -218,7 +218,7 @@ const UserProfileDash = () => {
       });
 
     // Fetch user orders
-    axios.get('http://localhost:5000/api/orders') // Adjust the endpoint for your backend
+    axios.get(`${import.meta.env.VITE_API_URL}/api/orders`) // Adjust the endpoint for your backend
       .then(response => {
         setOrders(response.data);
       })

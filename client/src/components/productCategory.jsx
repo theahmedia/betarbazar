@@ -235,7 +235,7 @@ const BannerSlider = () => {
                   </div>
                   <div className="w-full px-7 h-[250px] md:h-[280px] 2xl:h-[330px] rounded-lg overflow-hidden z-0">
                     <img
-                      src={category.image ? `http://localhost:5000/${category.image}` : '/default-image.jpg'}
+                      src={category.image ? `${import.meta.env.VITE_API_URL}/${category.image}` : '/default-image.jpg'}
                       alt={category.name}
                       className="w-full h-full object-cover object-center transition-transform duration-300 transform rounded-xl z-0"
                       loading="lazy"

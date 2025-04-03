@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/users"; // Adjust based on backend route
+const API_URL = `${import.meta.env.VITE_API_BASE_URL}/users`;
+const AUTH_URL = `${import.meta.env.VITE_API_BASE_URL}/auth`;
 
 const getAuthHeaders = () => ({
   headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -18,7 +19,7 @@ export const fetchUsers = async () => {
 
 
 export const createUser = async (userData) => {
-  const response = await fetch("http://localhost:5000/api/auth/register", {
+  const response = await fetch(`${AUTH_URL}/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -3,7 +3,8 @@ import { fetchCategories, createCategory, updateCategory, deleteCategory } from 
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { socket } from "../../utils/socket";
 
-
+const API_URL = import.meta.env.VITE_API_BASE_URL;
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL;
 
 const CategoryCreate = () => {
   const [categories, setCategories] = useState([]);
@@ -97,7 +98,7 @@ const CategoryCreate = () => {
   const handleEdit = (category) => {
     setEditingId(category._id);
     setName(category.name);
-    setPreview(`http://localhost:5000/${category.image}`);
+    setPreview(`${API_URL}/${category.image}`);
     setError("");
   };
 
@@ -167,7 +168,7 @@ const CategoryCreate = () => {
             <tr key={cat._id} className="border-b">
               <td className="border px-6 py-3">{index + 1}</td>
               <td className="border px-6 py-3">
-                <img src={`http://localhost:5000/${cat.image}`} alt={cat.name} className="h-12 w-12 object-cover rounded" />
+              <img src={`${API_URL}/${cat.image}`} alt={cat.name} className="h-12 w-12 object-cover rounded" />
               </td>
               <td className="border px-6 py-3">{cat.name}</td>
               <td className="border px-6 py-3 space-x-2">
