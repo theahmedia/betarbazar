@@ -4,7 +4,10 @@ import { useTranslation } from "react-i18next";
 //import { io } from "socket.io-client";
 import { socket } from "../utils/socket";
 
+const API_URL = import.meta.env.VITE_API_URL;
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL;
 
+socket.connect(SOCKET_URL);
 
 const CategoryPage = () => {
   const { t } = useTranslation();
@@ -13,7 +16,7 @@ const CategoryPage = () => {
   useEffect(() => {
     // Initially fetch categories
     const fetchCategories = async () => {
-      const response = await fetch("/api/categories");
+      const response = await fetch(`${API_URL}/api/categories`);
       const data = await response.json();
       setCategories(data);
     };

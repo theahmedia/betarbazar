@@ -7,6 +7,11 @@ import { ToastContainer, toast } from "react-toastify"; // Import toast
 import "react-toastify/dist/ReactToastify.css"; // Import toast CSS
 
 
+const API_URL = import.meta.env.VITE_API_URL;
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL;
+
+
+
 const CreateProducts = () => {
   const [formData, setFormData] = useState({
     productName: "",
@@ -68,10 +73,10 @@ const CreateProducts = () => {
     const fetchData = async () => {
       try {
         const [brandRes, categoryRes, purchaseRes, productRes] = await Promise.all([
-          axios.get("/api/brands"),
-          axios.get("/api/categories"),
-          axios.get("/api/purchases"),
-          axios.get("/api/products"),
+          axios.get(`${API_URL}/api/brands`),
+          axios.get(`${API_URL}/api/categories`),
+          axios.get(`${API_URL}/api/purchases`),
+          axios.get(`${API_URL}/api/products`),
         ]);
         setBrands(brandRes.data);
         setCategories(categoryRes.data);
@@ -176,14 +181,14 @@ const CreateProducts = () => {
 
       if (editingId) {
         // Update existing product
-        const updateResponse = await axios.put(`/api/products/${editingId}`, formDataToSend, {
+        const updateResponse = await axios.put(`${API_URL}/api/products/${editingId}`, formDataToSend, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         toast.success(`"${formData.productName}" has been successfully updated!`);
         console.log("Update response:", updateResponse.data);
       } else {
         // Add new product
-        const createResponse = await axios.post("/api/products", formDataToSend, {
+        const createResponse = await axios.post(`${API_URL}/api/products`, formDataToSend, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         toast.success(`"${formData.productName}" has been successfully added!`);
@@ -191,7 +196,7 @@ const CreateProducts = () => {
       }
 
       // Refetch products after adding/updating
-      const productRes = await axios.get("/api/products");
+      const productRes = await axios.get(`${API_URL}/api/products`);
       const sortedProducts = productRes.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setProducts(sortedProducts);
 
@@ -228,7 +233,7 @@ const CreateProducts = () => {
   const handleDelete = async () => {
     if (deleteId) {
       try {
-        await axios.delete(`/api/products/${deleteId}`);
+        await axios.delete(`${API_URL}/api/products/${deleteId}`);
         setProducts(products.filter((product) => product._id !== deleteId));
         setShowModal(false);
         setDeleteId(null);

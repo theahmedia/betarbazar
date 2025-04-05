@@ -9,6 +9,8 @@ import { FaShoppingCart } from "react-icons/fa"; // Assuming you're using this i
 import { useTranslation } from 'react-i18next';
 //import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const CategoryProductsPage = () => {
   const { t } = useTranslation();
   const { categoryId } = useParams();  // Get category ID from the URL
@@ -22,7 +24,7 @@ const CategoryProductsPage = () => {
     // Fetch category name
     const fetchCategory = async () => {
       try {
-        const response = await fetch(`/api/categories/${categoryId}`);
+        const response = await fetch(`${API_URL}/api/categories/${categoryId}`);
         const data = await response.json();
         setCategoryName(data.name || "Category"); // Default to "Category" if no name is found
       } catch (error) {
@@ -34,11 +36,11 @@ const CategoryProductsPage = () => {
     // Fetch products for the selected category
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`/api/products/category/${categoryId}`);
+        const response = await fetch(`${API_URL}/api/products/category/${categoryId}`);
         const data = await response.json();
 
         // Define the base image URL
-        const baseImageUrl = `${import.meta.env.VITE_API_URL}/uploads/products/`;
+        const baseImageUrl = `${API_URL}/uploads/products/`;
 
         // Map the products and validate the fields
         const validatedProducts = data.map((product) => ({

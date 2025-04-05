@@ -8,6 +8,8 @@ import axios from 'axios';
 import { useCart } from '../context/CartContext';
 import { useBag } from '../context/BagContext';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const formatPrice = (price, language, t) => {
   // Convert to number and handle NaN cases
   const numericPrice = Number(price);
@@ -35,7 +37,7 @@ const TopSellingProducts = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/categories`);  // Fetch categories if not already available
+        const response = await axios.get(`${API_URL}/api/categories`);  // Fetch categories if not already available
         setCategories(response.data); // Assuming the response contains an array of categories with ID and name
       } catch (err) {
         console.error('Error fetching categories:', err);
@@ -45,12 +47,12 @@ const TopSellingProducts = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/top-selling`);
+        const response = await axios.get(`${API_URL}/api/products/top-selling`);
         if (!response.data || !Array.isArray(response.data)) {
           throw new Error('Invalid API response format');
         }
 
-        const baseImageUrl = `${import.meta.env.VITE_API_URL}/uploads/products/`;
+        const baseImageUrl = `${API_URL}/uploads/products/`;
         const validatedProducts = response.data.map(product => ({
           ...product,
           sellingPrice: Number(product.sellAmount) || 0,

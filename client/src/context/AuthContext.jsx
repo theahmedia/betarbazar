@@ -1,6 +1,8 @@
 import React, { createContext, useState, useContext } from "react";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const AuthContext = createContext(null);
 
 // Custom hook for easy access
@@ -11,7 +13,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (phone, password) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, { phone, password });
+      const response = await axios.post(`${API_URL}/api/auth/login`, { phone, password });
       setUser(response.data.user);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", response.data.user.role);
@@ -22,7 +24,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, phone, email, password) => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users/register`, { name, phone, email, password });
+      const response = await axios.post(`${API_URL}/api/users/register`, { name, phone, email, password });
       setUser(response.data.user);
     } catch (error) {
       console.error(error);

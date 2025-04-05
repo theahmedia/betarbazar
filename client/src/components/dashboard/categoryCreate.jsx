@@ -3,8 +3,8 @@ import { fetchCategories, createCategory, updateCategory, deleteCategory } from 
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { socket } from "../../utils/socket";
 
-const API_URL = import.meta.env.VITE_API_BASE_URL;
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL;
+const API_URL = import.meta.env.VITE_API_URL;
+const SOCKET_URL = import.meta.env.VITE_API_URL;
 
 const CategoryCreate = () => {
   const [categories, setCategories] = useState([]);
@@ -20,7 +20,7 @@ const CategoryCreate = () => {
     loadCategories();
 
     // Manually connect the socket when the component mounts
-    socket.connect();
+    socket.connect(SOCKET_URL);
 
     // Listen for category updates and handle them
     socket.on("updateCategories", (newCategory) => {

@@ -7,6 +7,8 @@ import axios from 'axios';
 import { useCart } from '../context/CartContext';
 import { useBag } from '../context/BagContext';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const formatPrice = (price, language) => {
   if (typeof price !== 'number') {
     console.error("Invalid price value:", price);
@@ -37,7 +39,7 @@ const Rfy = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/categories`);
+        const response = await axios.get(`${API_URL}/api/categories`);
         setCategories(response.data);
       } catch (err) {
         console.error('Error fetching categories:', err);
@@ -55,11 +57,11 @@ const Rfy = () => {
           topRatedRes,
           featuredRes
         ] = await Promise.all([
-          axios.get(`${import.meta.env.VITE_API_URL}/api/products/top-selling`),
-          axios.get(`${import.meta.env.VITE_API_URL}/api/products/best-seller`),
-          axios.get(`${import.meta.env.VITE_API_URL}/api/products/new-arrival`),
-          axios.get(`${import.meta.env.VITE_API_URL}/api/products/top-rated`),
-          axios.get(`${import.meta.env.VITE_API_URL}/api/products/featured`)
+          axios.get(`${API_URL}/api/products/top-selling`),
+          axios.get(`${API_URL}/api/products/best-seller`),
+          axios.get(`${API_URL}/api/products/new-arrival`),
+          axios.get(`${API_URL}/api/products/top-rated`),
+          axios.get(`${API_URL}/api/products/featured`)
         ]);
 
         // Validate responses
@@ -74,7 +76,7 @@ const Rfy = () => {
               description: product.description,
               category: product.category || 'Uncategorized',
               rating: Number(product.rating) || 0,
-              image: product.image ? `${import.meta.env.VITE_API_URL}/uploads/products/${product.image}` : 'default-image-url',
+              image: product.image ? `${API_URL}/uploads/products/${product.image}` : 'default-image-url',
             }))
             : [];
 

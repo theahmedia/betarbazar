@@ -8,6 +8,8 @@ import axios from "axios";
 import { useBag } from "../../context/BagContext";
 import { useAuth } from "../../context/AuthContext";
 
+const API_URL = import.meta.env.VITE_API_URL
+
 const FloatingShoppingList = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -59,7 +61,7 @@ const FloatingShoppingList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("/api/products");
+        const response = await axios.get(`${API_URL}/api/products`);
         console.log("Fetched Products:", response.data); // ✅ Debugging
         setProducts(response.data);
       } catch (error) {
@@ -73,7 +75,7 @@ const FloatingShoppingList = () => {
   useEffect(() => {
     const fetchNewArrivals = async () => {
       try {
-        const response = await axios.get("/api/products/new-arrival");
+        const response = await axios.get(`${API_URL}/api/products/new-arrival`);
         setNewArrivalProducts(response.data.slice(0, 5)); // Display 5 new arrivals
       } catch (error) {
         console.error("Error fetching new arrivals:", error.response || error);
@@ -121,7 +123,7 @@ const FloatingShoppingList = () => {
         return;
       }
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/check-user?phone=${phoneNumber}`
+        `${API_URL}/api/check-user?phone=${phoneNumber}`
       );
       setIsExistingUser(response.data.exists);
     } catch (error) {
@@ -164,7 +166,7 @@ const FloatingShoppingList = () => {
     const fetchUserData = async (userId) => {
       try {
         if (userId) {
-          const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/${userId}`);
+          const response = await fetch(`${API_URL}/api/users/${userId}`);
           if (!response.ok) throw new Error("Failed to fetch user data");
 
           const userData = await response.json();
@@ -190,7 +192,7 @@ const FloatingShoppingList = () => {
   const updateInvoiceUrl = async (userId, invoiceUrl) => {
     try {
       const response = await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/users/${userId}/invoice`,
+        `${API_URL}/api/users/${userId}/invoice`,
         { invoiceUrl }
       );
       console.log("Invoice URL updated:", response.data);
@@ -237,13 +239,13 @@ const FloatingShoppingList = () => {
       let userId = user?.id;
   
       if (!userId) {
-        const userCheckResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/users?phone=${phoneNumber}`);
+        const userCheckResponse = await fetch(`${API_URL}/api/users?phone=${phoneNumber}`);
         const existingUser = await userCheckResponse.json();
   
         if (userCheckResponse.ok && existingUser?._id) {
           userId = existingUser._id;
         } else {
-          const registerResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
+          const registerResponse = await fetch(`${API_URL}/api/auth/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -279,7 +281,7 @@ const FloatingShoppingList = () => {
         paymentNumber,
       };
   
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, {
+      const response = await fetch(`${API_URL}/api/orders`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(orderData),

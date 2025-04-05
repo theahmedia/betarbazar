@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = `${import.meta.env.VITE_API_URL}/brands`;
+const API_URL = `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/brands`;
 
 export const fetchBrands = async () => {
   try {

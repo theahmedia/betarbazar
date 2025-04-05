@@ -7,6 +7,8 @@ import { IoCloseCircleOutline } from 'react-icons/io5';
 import axios from 'axios';
 import { useBag } from '../context/BagContext';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const formatPrice = (price, language, t) => {
   const numericPrice = Number(price);
   if (isNaN(numericPrice)) return t('priceNotAvailable');
@@ -31,7 +33,7 @@ const ProductPriceSection = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('/api/categories');  // Fetch categories if not already available
+        const response = await axios.get(`${API_URL}/api/categories`);  // Fetch categories if not already available
         setCategories(response.data); // Assuming the response contains an array of categories with ID and name
       } catch (err) {
         console.error('Error fetching categories:', err);
@@ -41,12 +43,12 @@ const ProductPriceSection = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('/api/products/todays-market-price');
+        const response = await axios.get(`${API_URL}/api/products/todays-market-price`);
         if (!response.data || !Array.isArray(response.data)) {
           throw new Error('Invalid API response format');
         }
 
-        const baseImageUrl = `${import.meta.env.VITE_API_URL}/uploads/products/`;
+        const baseImageUrl = `${API_URL}/uploads/products/`;
         const validatedProducts = response.data.map(product => ({
           ...product,
           sellingPrice: Number(product.sellAmount) || 0,

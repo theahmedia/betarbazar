@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/api/categories`;
+const API_URL = `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/api/categories`;
 
 export const fetchCategories = async () => {
   const response = await axios.get(API_URL);

@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import axios from 'axios'; // Import axios for API call
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const BannerSlider = () => {
   const { t } = useTranslation();
   const [categories, setCategories] = useState([]);
@@ -16,7 +18,7 @@ const BannerSlider = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/categories`); // Replace with your backend API endpoint
+        const response = await axios.get(`${API_URL}/api/categories`); // Replace with your backend API endpoint
         setCategories(response.data); // Assuming the API returns an array of categories
       } catch (error) {
         console.error("Error fetching categories:", error);

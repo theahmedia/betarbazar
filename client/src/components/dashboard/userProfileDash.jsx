@@ -237,7 +237,7 @@ const UserProfileDash = () => {
 
   const handleDownloadInvoice = (orderId) => {
     // Implement the logic to download the invoice. This can be a link to the PDF or a PDF generation API.
-    axios.get(`/api/invoice/download/${orderId}`, { responseType: 'blob' })
+    axios.get(`${import.meta.env.VITE_API_URL}/api/invoice/download/${orderId}`, { responseType: 'blob' })
       .then(response => {
         const file = new Blob([response.data], { type: 'application/pdf' });
         const link = document.createElement('a');

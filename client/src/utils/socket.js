@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 
 // Use environment variable for dynamic URL
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "https://betarbazar.com";
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "https://api.betarbazar.com";
 
 // Create a socket connection instance
 export const socket = io(SOCKET_URL, {
