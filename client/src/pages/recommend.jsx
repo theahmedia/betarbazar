@@ -37,7 +37,7 @@ const Rfy = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('/api/categories');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/categories`);
         setCategories(response.data);
       } catch (err) {
         console.error('Error fetching categories:', err);
@@ -55,11 +55,11 @@ const Rfy = () => {
           topRatedRes,
           featuredRes
         ] = await Promise.all([
-          axios.get('/api/products/top-selling'),
-          axios.get('/api/products/best-seller'),
-          axios.get('/api/products/new-arrival'),
-          axios.get('/api/products/top-rated'),
-          axios.get('/api/products/featured')
+          axios.get(`${import.meta.env.VITE_API_URL}/api/products/top-selling`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/products/best-seller`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/products/new-arrival`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/products/top-rated`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/products/featured`)
         ]);
 
         // Validate responses
