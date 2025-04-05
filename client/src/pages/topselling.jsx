@@ -22,7 +22,7 @@ const formatPrice = (price, language, t) => {
 
 const TopSellingProducts = () => {
   const { t, i18n } = useTranslation();
-  const { setHoveredProduct } = useState(null);
+  const [hoveredProduct, setHoveredProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [quantities, setQuantities] = useState({});
   const [products, setProducts] = useState([]);
@@ -35,7 +35,7 @@ const TopSellingProducts = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('/api/categories');  // Fetch categories if not already available
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/categories`);  // Fetch categories if not already available
         setCategories(response.data); // Assuming the response contains an array of categories with ID and name
       } catch (err) {
         console.error('Error fetching categories:', err);
@@ -45,7 +45,7 @@ const TopSellingProducts = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('/api/products/top-selling');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/products/top-selling`);
         if (!response.data || !Array.isArray(response.data)) {
           throw new Error('Invalid API response format');
         }
