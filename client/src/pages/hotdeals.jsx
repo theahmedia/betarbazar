@@ -21,7 +21,7 @@ const formatPrice = (price, language, t) => {
 
 const HotDeals = () => {
   const { t, i18n } = useTranslation();
-  const { setHoveredProduct } = useState(null);
+  const [hoveredProduct, setHoveredProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [quantities, setQuantities] = useState({});
   const [products, setProducts] = useState([]);
@@ -34,7 +34,7 @@ const HotDeals = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('/api/categories');  // Fetch categories if not already available
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/categories`);
         setCategories(response.data); // Assuming the response contains an array of categories with ID and name
       } catch (err) {
         console.error('Error fetching categories:', err);
